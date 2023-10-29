@@ -60,10 +60,10 @@ functions:
           cors: true
           authorizer: Auth
     iamRoleStatements:
-        - Effect: Allow
-          Action:
-            - dynamodb:Query
-          Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}
+      - Effect: Allow
+        Action:
+          - dynamodb:Query
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}
       - Effect: Allow
         Action:
           - xray:PutTraceSegments
@@ -168,7 +168,7 @@ functions:
           - xray:PutTelemetryRecords
         Resource:
           - "*"
-                  
+
 resources:
   Resources:
     # Add necessary AWS resources. You will need at least the following AWS resources
