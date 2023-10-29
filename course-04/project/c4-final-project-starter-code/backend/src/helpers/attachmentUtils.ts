@@ -15,11 +15,11 @@ const bucketName = process.env.ATTACHMENT_S3_BUCKET
 const urlExpiration = process.env.SIGNED_URL_EXPIRATION
 
 
-export function getUploadUrl(imageId: string) {
+export function getPreSignedUploadUrl(imageId: string) {
   return s3.getSignedUrl('putObject', {
     Bucket: bucketName,
     Key: imageId,
-    Expires: urlExpiration
+    Expires: +urlExpiration
   })
 }
 
@@ -41,6 +41,6 @@ export async function deleteAttachmentImage(imageId: string) {
 
 export default {
   deleteAttachmentImage,
-  getUploadUrl,
+  getPreSignedUploadUrl,
   generateAttachmentURL
 }

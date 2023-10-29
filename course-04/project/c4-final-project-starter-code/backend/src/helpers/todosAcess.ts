@@ -10,7 +10,7 @@ const AWSXRay = require('aws-xray-sdk')
 import {
   deleteAttachmentImage,
   generateAttachmentURL,
-  getUploadUrl
+  getPreSignedUploadUrl
 } from './attachmentUtils'
 
 const XAWS = AWSXRay.captureAWS(AWS)
@@ -78,7 +78,7 @@ export class TodosAccess {
         ExpressionAttributeValues: { ':attachmentUrl': attachmentUrl }
       })
       .promise()
-    const uploadUrl = getUploadUrl(imageId)
+    const uploadUrl = getPreSignedUploadUrl(imageId)
     return uploadUrl
   }
 
