@@ -1,8 +1,8 @@
-import { TodosAccess } from './todosAcess'
+import { TodosAccess } from '../dataLayer/todosAcess'
 // import { AttachmentUtils } from './attachmentUtils';
-import { TodoItem } from '../models/TodoItem'
-import { CreateTodoRequest } from '../requests/CreateTodoRequest'
-import { UpdateTodoRequest } from '../requests/UpdateTodoRequest'
+import { TodoItem } from '../../models/TodoItem'
+import { CreateTodoRequest } from '../../requests/CreateTodoRequest'
+import { UpdateTodoRequest } from '../../requests/UpdateTodoRequest'
 import * as uuid from 'uuid'
 
 // TODO: Implement businessLogic
