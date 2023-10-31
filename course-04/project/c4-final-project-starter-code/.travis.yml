@@ -1,0 +1,25 @@
+
+language: node_js
+node_js:
+  - 12
+
+services:
+  - docker
+
+# Pre-testing installs
+install:
+  - npm install -g serverless@2.21.1
+  - cd backend && npm install
+
+before_script:
+  - sls config credentials --provider aws --key $aws_access_key_id --secret $aws_secret_access_key
+  - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+script:
+  - echo "Deploy Backend ..."
+  - sls -version
+  - sls deploy
+  - echo "Deploy Frontend ..."
+  - cd ../client
+  - docker --version
+  - docker build -t trieunv/udagram-todo-app-client .
+  - docker push trieunv/udagram-todo-app-client:latest
