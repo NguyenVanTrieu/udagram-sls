@@ -17,8 +17,9 @@ export const handler = middy(
 
     const userId = getUserId(event)
     logger.info('userId: ' + userId);
+    const {filter} = event.queryStringParameters;
 
-    const result = await getAllTodos(userId)
+    const result = await getAllTodos(userId, filter)
     return {
       statusCode: 200,
       body: JSON.stringify({

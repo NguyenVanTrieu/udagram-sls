@@ -169,6 +169,25 @@ functions:
         Resource:
           - "*"
 
+  RemoveAttachment:
+    handler: src/lambda/http/removeAttachment.handler
+    events:
+      - http:
+          method: post
+          path: todos/{todoId}/attachment/{imageId}
+          cors: true
+          authorizer: Auth
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:UpdateItem
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}
+      - Effect: Allow
+        Action:
+          - s3:DeleteObject
+          - s3:GetObject
+        Resource: arn:aws:s3:::${self:provider.environment.ATTACHMENT_S3_BUCKET}/*
+
 resources:
   Resources:
     # Add necessary AWS resources. You will need at least the following AWS resources

@@ -1,6 +1,6 @@
 import * as AWS from 'aws-sdk'
 import { DocumentClient } from 'aws-sdk/clients/dynamodb'
-import { createLogger } from '../../utils/logger'
+import { FILTER, createLogger } from '../../utils/logger'
 import { TodoItem } from '../../models/TodoItem'
 import { TodoUpdate } from '../../models/TodoUpdate'
 import { UpdateTodoRequest } from '../../requests/UpdateTodoRequest'
@@ -105,6 +105,7 @@ export class TodosAccess {
 
   async getAllTodos(
     userId: String,
+    filter: String,
   ): Promise<TodoItem[]> {
     logger.info(`Start findByUserId:${userId}`)
 
@@ -114,6 +115,16 @@ export class TodosAccess {
       ExpressionAttributeValues: { ':userId': userId },
       ExpressionAttributeNames: { '#todo_userId': 'userId' }
     }
+
+    if (filter === FILTER.DONE) {
+      params.ExpressionAttributeValues = { ':userId': userId, ':done': true }
+      params.FilterExpression = 'done = :done'
+    }
+    if (filter === FILTER.TODO) {
+      params.ExpressionAttributeValues = { ':userId': userId, ':done': false }
+      params.FilterExpression = 'done = :done'
+    }
+
 
     logger.info('End findByUserId params' + JSON.stringify(params))
     const result = await this.docClient.query(params).promise()

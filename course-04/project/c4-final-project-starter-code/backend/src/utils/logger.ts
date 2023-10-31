@@ -15,3 +15,8 @@ export function createLogger(loggerName: string) {
     ]
   })
 }
+
+export const FILTER = {
+  DONE: 'DONE',
+  TODO: 'TODO'
+}

@@ -8,12 +8,8 @@ import * as uuid from 'uuid'
 // TODO: Implement businessLogic
 const todoAccess = new TodosAccess()
 
-// export async function getAllTodos(): Promise<TodoItem[]> {
-//   return todoAccess.getAllTodo()
-// }
-
-export async function getAllTodos(userId: string): Promise<TodoItem[]> {
-  return todoAccess.getAllTodos(userId)
+export async function getAllTodos(userId: string, filter: string): Promise<TodoItem[]> {
+  return todoAccess.getAllTodos(userId, filter)
 }
 
 export async function createTodo(item: CreateTodoRequest, userId: string): Promise<TodoItem> {
